@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const session = ('express-session');
 require('dotenv').config();
 
+const checkForSession = require('./middlewares/checkForSession');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -11,6 +13,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+app.use( checkForSession );
 
 const port = process.env.SERVER_PORT || 3000;
 app.listen( port, () => {
